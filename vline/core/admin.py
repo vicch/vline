@@ -34,13 +34,14 @@ class EventForm(ModelForm):
 class EventAdmin(ModelAdmin):
     form = EventForm
     search_fields = ('name',)
-    list_display = ('name', 'entity_names', 'start_time', 'end_time', 'location', 'story_names')
+    list_display = ('name', 'entity_list', 'start_time', 'end_time', 'location', 'story_list')
+    list_filter = ('entities', 'stories')
 
-    def entity_names(self, obj):
+    def entity_list(self, obj):
         entity_names = [entity.name for entity in obj.entities.all()]
         return ', '.join(entity_names)
 
-    def story_names(self, obj):
+    def story_list(self, obj):
         story_names = [story.name for story in obj.stories.all()]
         return ', '.join(story_names)
 
