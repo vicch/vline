@@ -34,6 +34,7 @@ class EventForm(ModelForm):
 class EventAdmin(ModelAdmin):
     form = EventForm
     search_fields = ('name',)
+    list_display = ('name', 'start_time', 'end_time', 'location')
 
 admin.site.register(Event, EventAdmin)
 
@@ -41,21 +42,4 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(EventRelation)
 
 
-# class EntityEventForm(ModelForm):
-#     class Meta:
-#         widgets = {
-#             'entity':      Select,
-#             'event':       Select,
-#             'description': AutosizedTextarea,
-#             'cause':       AutosizedTextarea,
-#             'effect':      AutosizedTextarea,
-#         }
-
-# class EntityEventAdmin(ModelAdmin):
-#     form = EntityEventForm
-
-# admin.site.register(EntityEvent, EntityEventAdmin)
-
-
 admin.site.register(Story)
-# admin.site.register(StoryEvent)
