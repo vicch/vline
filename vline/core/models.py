@@ -31,10 +31,13 @@ class Event(models.Model):
     name        = models.CharField(max_length=200)
     start_time  = models.DateTimeField('Start')
     end_time    = models.DateTimeField('End')
+    entities    = models.ManyToManyField('Entity')
     location    = models.CharField(max_length=200, blank=True, null=True)
+    participant = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     cause       = models.TextField(blank=True, null=True)
     effect      = models.TextField(blank=True, null=True)
+    stories     = models.ManyToManyField('Story')
 
     def __str__(self):
         return self.name
@@ -46,15 +49,15 @@ class EventRelation(models.Model):
     description = models.TextField()
 
 
-class EntityEvent(models.Model):
-    entity      = models.ForeignKey('Entity')
-    event       = models.ForeignKey('Event')
-    description = models.TextField(blank=True, null=True)
-    cause       = models.TextField(blank=True, null=True)
-    effect      = models.TextField(blank=True, null=True)
+# class EntityEvent(models.Model):
+#     entity      = models.ForeignKey('Entity')
+#     event       = models.ForeignKey('Event')
+#     description = models.TextField(blank=True, null=True)
+#     cause       = models.TextField(blank=True, null=True)
+#     effect      = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return self.entity.name + ' - ' + self.event.name
+#     def __str__(self):
+#         return self.entity.name + ' - ' + self.event.name
 
 
 class Story(models.Model):
@@ -67,9 +70,9 @@ class Story(models.Model):
         verbose_name_plural = "Stories"
 
 
-class StoryEvent(models.Model):
-    story = models.ForeignKey('Story')
-    event = models.ForeignKey('Event')
+# class StoryEvent(models.Model):
+#     story = models.ForeignKey('Story')
+#     event = models.ForeignKey('Event')
 
-    def __str__(self):
-        return self.story.name + ' - ' + self.event.name
+#     def __str__(self):
+#         return self.story.name + ' - ' + self.event.name

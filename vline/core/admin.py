@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from django.forms import ModelForm, TextInput, Textarea, Select
+from django.forms import ModelForm, TextInput, Textarea, Select, \
+                         SelectMultiple
 
 from .models import EntityType, Entity, EventType, Event, EventRelation, \
-                    EntityEvent, Story, StoryEvent
+                    Story
 
-from suit.widgets import SuitSplitDateTimeWidget, AutosizedTextarea
+from suit.widgets import SuitSplitDateTimeWidget, AutosizedTextarea, \
+                        LinkedSelect
 
 
 admin.site.register(EntityType)
@@ -20,10 +22,13 @@ class EventForm(ModelForm):
             'name':        TextInput,
             'start_time':  SuitSplitDateTimeWidget,
             'end_time':    SuitSplitDateTimeWidget,
+            'entities':    SelectMultiple,
             'location':    TextInput,
+            'participant': AutosizedTextarea,
             'description': AutosizedTextarea,
             'cause':       AutosizedTextarea,
             'effect':      AutosizedTextarea,
+            'stories':     SelectMultiple,
         }
 
 class EventAdmin(ModelAdmin):
@@ -34,6 +39,23 @@ admin.site.register(Event, EventAdmin)
 
 
 admin.site.register(EventRelation)
-admin.site.register(EntityEvent)
+
+
+# class EntityEventForm(ModelForm):
+#     class Meta:
+#         widgets = {
+#             'entity':      Select,
+#             'event':       Select,
+#             'description': AutosizedTextarea,
+#             'cause':       AutosizedTextarea,
+#             'effect':      AutosizedTextarea,
+#         }
+
+# class EntityEventAdmin(ModelAdmin):
+#     form = EntityEventForm
+
+# admin.site.register(EntityEvent, EntityEventAdmin)
+
+
 admin.site.register(Story)
-admin.site.register(StoryEvent)
+# admin.site.register(StoryEvent)
