@@ -16,6 +16,8 @@ import os
 # For django-suit
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
+# For date time foramt
+from django.conf.locale.en import formats as en_formats
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -113,3 +115,6 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
 STATIC_ROOT = '/static/'
+
+# Date time format
+en_formats.DATETIME_FORMAT = "Y-m-d"
