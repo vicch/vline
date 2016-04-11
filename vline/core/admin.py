@@ -34,7 +34,15 @@ class EventForm(ModelForm):
 class EventAdmin(ModelAdmin):
     form = EventForm
     search_fields = ('name',)
-    list_display = ('name', 'start_time', 'end_time', 'location')
+    list_display = ('name', 'entity_names', 'start_time', 'end_time', 'location', 'story_names')
+
+    def entity_names(self, obj):
+        entity_names = [entity.name for entity in obj.entities.all()]
+        return ', '.join(entity_names)
+
+    def story_names(self, obj):
+        story_names = [story.name for story in obj.stories.all()]
+        return ', '.join(story_names)
 
 admin.site.register(Event, EventAdmin)
 
