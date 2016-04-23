@@ -22,7 +22,7 @@ class EventForm(ModelForm):
             'name':        TextInput,
             'start_time':  SuitSplitDateTimeWidget,
             'end_time':    SuitSplitDateTimeWidget,
-            'entities':    SelectMultiple,
+            'entities':    SelectMultiple(attrs={'size':'10'}),
             'location':    TextInput,
             'participant': AutosizedTextarea,
             'description': AutosizedTextarea,
@@ -34,8 +34,10 @@ class EventForm(ModelForm):
 class EventAdmin(ModelAdmin):
     form = EventForm
     search_fields = ('name',)
-    list_display = ('name', 'entity_list', 'start_time', 'end_time', 'location', 'story_list')
-    list_filter = ('entities', 'stories')
+    list_display = ('name', 'type', 'entity_list', 'start_time', 'end_time', 'location', 'story_list')
+    list_filter = ('type', 'entities', 'stories')
+    list_per_page = 200
+    list_max_show_all = 500
 
     def entity_list(self, obj):
         entity_names = [entity.name for entity in obj.entities.all()]
