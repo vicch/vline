@@ -16,6 +16,7 @@ class Entity(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['name']
         verbose_name_plural = "Entities"
 
 
@@ -24,6 +25,9 @@ class EventType(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['name']
 
 
 class Event(models.Model):
