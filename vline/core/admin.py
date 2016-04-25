@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.forms import ModelForm, TextInput, Textarea, Select, \
                          SelectMultiple
+from django.http import HttpResponseRedirect
 
 from .models import EntityType, Entity, EventType, Event, EventRelation, \
                     Story
@@ -46,6 +47,14 @@ class EventAdmin(ModelAdmin):
     def story_list(self, obj):
         story_names = [story.name for story in obj.stories.all()]
         return ', '.join(story_names)
+
+    def response_add(self, request, obj, post_url_continue=None):
+        """Display events of the first related entity"""
+        return HttpResponseRedirect('/admin/core/event/?q=&entities__id__exact=' + str(obj.entities.all()[0].id))
+
+    def response_change(self, request, obj):
+        """Display events of the first related entity"""
+        return HttpResponseRedirect('/admin/core/event/?q=&entities__id__exact=' + str(obj.entities.all()[0].id))
 
 admin.site.register(Event, EventAdmin)
 
