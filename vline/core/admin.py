@@ -35,7 +35,7 @@ class EventForm(ModelForm):
 class EventAdmin(ModelAdmin):
     form = EventForm
     search_fields = ('name',)
-    list_display = ('name', 'type', 'entity_list', 'start_time', 'end_time', 'location', 'story_list')
+    list_display = ('name', 'type', 'entity_list', 'start_time', 'end_time', 'story_list')
     list_filter = ('type', 'entities', 'stories')
     list_per_page = 200
     list_max_show_all = 500
